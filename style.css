@@ -1,0 +1,35 @@
+.body{
+    font-size: 100%;
+    padding: 0px;
+    margin: 15%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0);
+
+}
+
+.cabeçalho-titulo{
+    background-color: rgb(60, 72, 58);
+    margin: 10%;
+    padding: 10px;
+    text-align: center;
+}
+
+.informações{
+    background-color: rgb(46, 145, 114);
+    margin: 10px;
+    padding: 10px;
+    text-align: justify;
+}
+
+.imagens{
+    text-align: center;
+}
+
+.imagam1{
+    width: 50%;
+}
+
+
+
+
+
