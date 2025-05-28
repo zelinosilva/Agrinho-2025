@@ -1,70 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Festejando a conexão campo-cidade</title>
+    <title>Agrinho: Festejando a Conexão Campo-Cidade</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleContrast = document.getElementById('toggle-contrast');
+            if (toggleContrast) {
+                toggleContrast.addEventListener('click', function() {
+                    document.body.classList.toggle('high-contrast');
+                    const isHighContrast = document.body.classList.contains('high-contrast');
+                    localStorage.setItem('highContrast', isHighContrast);
+                    this.setAttribute('aria-pressed', isHighContrast);
+                    this.textContent = isHighContrast ? 'Contraste Normal' : 'Alto Contraste';
+                });
+                // Aplica contraste se estiver salvo no localStorage
+                if (localStorage.getItem('highContrast') === 'true') {
+                    document.body.classList.add('high-contrast');
+                    toggleContrast.textContent = 'Contraste Normal';
+                    toggleContrast.setAttribute('aria-pressed', 'true');
+                } else {
+                    toggleContrast.textContent = 'Alto Contraste';
+                    toggleContrast.setAttribute('aria-pressed', 'false');
+                }
+            }
 
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // Foca no elemento para usuários de leitores de tela
+                        targetElement.setAttribute('tabindex', '-1');
+                        targetElement.focus();
+                    }
+                });
+            });
+
+            // Basic carousel functionality for depoimentos
+            const carousel = document.querySelector('.depoimento-carousel');
+            if (carousel) {
+                const items = document.querySelectorAll('.depoimento-item');
+                let currentIndex = 0;
+
+                function showNextDepoimento() {
+                    if (items.length === 0) return;
+                    currentIndex = (currentIndex + 1) % items.length;
+                    const offset = -currentIndex * 100; // Assume items are 100% width
+                    carousel.style.transform = `translateX(${offset}%)`;
+                    // Para acessibilidade, é bom anunciar a mudança (aria-live region)
+                    // Mas para este carrossel simples, é menos crítico.
+                }
+
+                if (items.length > 1) { // Só ativa o intervalo se houver mais de um depoimento
+                    setInterval(showNextDepoimento, 7000); // Change depoimento every 7 seconds
+                }
+            }
+        });
+    </script>
 </head>
 <body>
-   <header class="cabeçalho-titulo">
-    <h1>Festejando a conexão campo-cidadess</h1>
-   </header>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-   <section class="informações">
-    <h2>Laços de Terra e Asfalto: Festejando Nossa Conexão</h2>
-    <p class="informacoes-texto"> A conexão entre campo e cidade é a base da nossa sociedade.
-        O campo, com suas lavouras e criações, produz o alimento que chega à nossa mesa, as matérias-primas para a indústria e a energia que move o país.
-         cidade, por sua vez, oferece o mercado consumidor, a tecnologia, a educação e os serviços que impulsionam o desenvolvimento rural. 
-         Essa interdependência é um ciclo virtuoso: o campo alimenta a cidade, e a cidade provê o suporte para que o campo prospere.
-         É uma parceria fundamental que merece ser valorizada e festejada diariamente, garantindo o bem-estar de todos.
-    </p>
-   </section>
-   <section class="imagens">
-    <img class="imagem1" src="ciclo.png" alt="Alta tecnologia no campo">
-    
-    <h2>Colheitadeiras altomaticas</h2>
-    <img src="image.png" alt="">
-    <p>Tratores altomaticos, hoje em dia maquinas estão pilotando sozinhas, humanos controlando
-        tudo por telas, apenas apertando um botão tudo se faz altomatica,
-        Tratores autônomos são máquinas agrícolas que foram desenvolvidas 
-        (através de um modelo denteligência Artificial) para trabalhar sem a necessidade de operador, 
-        com o objetivo de maximizar os ganhos e gerar uma eficiência maior nos trabalhos da lavoura.
-    </p>
-   </section>
+    <header>
+        <div class="container">
+            <h1>Agrinho: Festejando a Conexão Campo-Cidade</h1>
+            <nav aria-label="Navegação Principal">
+                <ul>
+                    <li><a href="#sobre">Sobre o Agrinho</a></li>
+                    <li><a href="#objetivos">Nossos Objetivos</a></li>
+                    <li><a href="#atividades">Atividades</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <button id="toggle-contrast" class="btn-contrast" aria-pressed="false" aria-label="Ativar ou desativar alto contraste">Alto Contraste</button>
+        </div>
+    </header>
 
-   <section class="image3">
-   <img src="image (3).png" alt="Estufa altomatica">
-   <h2>Estufa altomatica</h2>
-   <section class="informações">
-    <h1>Descubra os benefícios da automação de estufas agrícolas, 
-        como aumento da produtividade e qualidade dos produtos.
-        Conheça os métodos de automatização e os custos envolvidos.
-        A automação de estufas agrícolas é um processo que tem se tornado cada
-         vez maispopular devido aos seus benefícios para os produtores agrícolas e pesquisadores. </h1>
+    <main id="main-content">
+        <section id="hero" role="banner">
+            <div class="container">
+                <h2>Educação e Conscientização para um Futuro Sustentável</h2>
+                <p>Conectando o campo e a cidade, o Programa Agrinho promove a valorização do meio rural, a educação ambiental e o desenvolvimento de cidadãos mais conscientes.</p>
+                <a href="#sobre" class="btn">Saiba Mais sobre o Agrinho</a>
+            </div>
+        </section>
 
-   </section>
+        <section id="sobre" aria-labelledby="sobre-titulo">
+            <div class="container">
+                <h2 id="sobre-titulo">Sobre o Programa Agrinho</h2>
+                <p>O Agrinho é um programa educacional abrangente, iniciativa do Serviço Nacional de Aprendizagem Rural (SENAR), que atua em parceria com secretarias de educação e prefeituras. Seu principal objetivo é integrar temas cruciais como ética, cidadania, saúde, meio ambiente, segurança alimentar e a fundamental importância do agronegócio para o desenvolvimento do Brasil no currículo escolar.</p>
+                <p>Com uma metodologia lúdica e interdisciplinar, o Agrinho incentiva a reflexão crítica e a participação ativa dos alunos na construção de um mundo mais justo e sustentável. O tema **"Festejando a Conexão Campo-Cidade"** deste ano, ressalta a interdependência e o diálogo constante entre o meio rural e urbano. Destacamos como a produção do campo, essencial para a alimentação e matéria-prima, chega à mesa das cidades, e como a inovação e a tecnologia desenvolvidas nas áreas urbanas impulsionam o progresso e a eficiência do setor agrícola.</p>
+            </div>
+        </section>
 
-   <section class="image2">
-    <img src="image (2).png" alt="Drones no campos">
-    <h1>Drones no campo, o uso deles tem sido fundamental em grandes partes, aumentando a velocidade 
-        e as areas que são atingidas:
-        <ul>
-<li>1 Análise da plantação</li>
-<li>2 Aplicação de insumos</li>
-<li>3 Aplicação de insumos/li>
-<li>4 Contagem de plantas</li>
-<li>5 Segurança</li>
+        <section id="objetivos" aria-labelledby="objetivos-titulo">
+            <div class="container">
+                <h2 id="objetivos-titulo">Nossos Objetivos</h2>
+                <div class="objetivos-grid">
+                    <div class="objetivo-item">
+                        <h3>Promover a Cidadania</h3>
+                        <p>Desenvolver nos alunos o senso crítico, a responsabilidade social e o engajamento comunitário, formando cidadãos ativos e participativos.</p>
+                    </div>
+                    <div class="objetivo-item">
+                        <h3>Valorizar o Campo</h3>
+                        <p>Evidenciar a relevância do agronegócio, da vida no campo e do produtor rural para a economia, a cultura e a segurança alimentar do país.</p>
+                    </div>
+                    <div class="objetivo-item">
+                        <h3>Estimular a Sustentabilidade</h3>
+                        <p>Incentivar a adoção de práticas e hábitos que contribuam para a preservação ambiental, o uso consciente dos recursos naturais e a sustentabilidade em todas as suas dimensões.</p>
+                    </div>
+                    <div class="objetivo-item">
+                        <h3>Fomentar a Saúde e Alimentação</h3>
+                        <p>Conscientizar sobre a importância de hábitos alimentares saudáveis, a procedência dos alimentos e as boas práticas de segurança alimentar, promovendo bem-estar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-       
-        
-    <h1>
-   </section>
-   <footer>
-    <h1>Referências:
-        https://terramagna.com.br/blog/tratores-autonomos/
-    </h1>
-   </footer>
+        <section id="atividades" aria-labelledby="atividades-titulo">
+            <div class="container">
+                <h2 id="atividades-titulo">Atividades e Projetos</h2>
+                <div class="atividades-grid">
+                    <div class="atividade-item">
+                        <img src="https://via.placeholder.com/400x250?text=Oficinas+Educativas" alt="Imagem de crianças participando de oficinas educativas sobre o meio ambiente, com plantas e materiais reciclados.">
+                        <h3>Oficinas Educativas Interativas</h3>
+                        <p>Dinâmicas e atividades práticas que abordam temas rurais e ambientais de forma envolvente, como hortas escolares, reciclagem e conservação da água.</p>
+                    </div>
+                    <div class="atividade-item">
+                        <img src="https://via.placeholder.com/400x250?text=Visitas+Técnicas+ao+Campo" alt="Imagem de alunos em uma visita técnica a uma fazenda, observando animais e plantações sob supervisão.">
+                        <h3>Visitas Técnicas ao Campo</h3>
+                        <p>Passeios educativos a propriedades rurais, cooperativas e empresas do agronegócio, proporcionando uma imersão prática na realidade do campo.</p>
+                    </div>
+                    <div class="atividade-item">
+                        <img src="https://via.placeholder.com/400x250?text=Concursos+e+Eventos" alt="Imagem de crianças apresentando projetos em uma feira de ciências ou evento escolar do Agrinho.">
+                        <h3>Concursos e Eventos</h3>
+                        <p>Competições e celebrações que reconhecem e premiam os melhores projetos, desenhos, redações e ações ambientais desenvolvidas pelos alunos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" aria-labelledby="depoimentos-titulo">
+            <div class="container">
+                <h2 id="depoimentos-titulo">O Que Dizem Sobre o Agrinho</h2>
+                <div class="depoimento-carousel" role="region" aria-live="polite" aria-atomic="true">
+                    <div class="depoimento-item" role="group" aria-roledescription="slide" aria-label="Depoimento 1 de 2">
+                        <p>"O Programa Agrinho transformou a maneira como meus alunos veem o campo. Eles entenderam a importância da agricultura para o nosso dia a dia e se engajaram muito mais com a sustentabilidade!"</p>
+                        <span>- Professora Ana Paula, Escola Municipal Sol Nascente</span>
+                    </div>
+                    <div class="depoimento-item" role="group" aria-roledescription="slide" aria-label="Depoimento 2 de 2">
+                        <p>"Participei do concurso de desenho e foi muito legal! Aprendi demais sobre a natureza e como cuidar dela. Agora eu sei que o campo é muito importante para a nossa comida."</p>
+                        <span>- João Pedro, Aluno do 5º ano</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" aria-labelledby="contato-titulo">
+            <div class="container">
+                <h2 id="contato-titulo">Entre em Contato</h2>
+                <p>Para mais informações sobre o Programa Agrinho, preencha o formulário abaixo ou entre em contato pelos nossos canais. Sua participação é fundamental para o sucesso do nosso programa!</p>
+                <form action="#" method="POST" aria-label="Formulário de Contato">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo: <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" autocomplete="name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail: <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" autocomplete="email" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="assunto">Assunto:</label>
+                        <input type="text" id="assunto" name="assunto">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem: <span class="required">*</span></label>
+                        <textarea id="mensagem" name="mensagem" rows="6" required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar Mensagem</button>
+                </form>
+                <div class="contato-info">
+                    <p>Email: <a href="mailto:agrinho@senar.org.br">agrinho@senar.org.br</a></p>
+                    <p>Telefone: <a href="tel:+55XXYYYYXXXX">(XX) YYYY-XXXX</a></p>
+                    <p>Endereço: Rua do Agronegócio, 123 - Centro, Cidade - UF</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Agrinho - SENAR. Todos os direitos reservados.
+                <a href="#top" aria-label="Voltar ao topo da página">Voltar ao Topo</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
